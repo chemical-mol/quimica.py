@@ -27,10 +27,25 @@ class chemical:
   #________________________Elementos_______________________________
 
   def elemento(self):
-    self.element = self.caixa_elem.get()
-    pass
+    try:
+      self.t_elem = self.caixa_elem.get()
+      self.p_elem = ELEMENTS[self.t_elem]
+      self.nome_e = self.p_elem.name
+      self.simbolo = self.p_elem.symbol
+      self.conf = self.p_elem.eleconfig
+      self.e_conf = self.p_elem.eleconfig_dict
+      self.ap_elem.config(text=f'{self.nome_e}')
+      self.ap_simb.config(text=f'{self.simbolo}')
+      self.ap_conf.config(text=f'{self.conf}')
+      self.ap_confe.config(text=f'{self.e_conf}')
+    except:
+      self.ap_elem.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
+      self.ap_simb.config(text=f'VERIFIQUE O QUE FOI ESCRITO ')
+      self.ap_conf.config(
+        text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
+      self.ap_confe.config(text=f'Erro!')
 
-  #_________________________________________________________________
+  #___ ______________________________________________________________
 
   def __init__(self, master):
 
@@ -48,7 +63,11 @@ class chemical:
                        borderwidth=2,
                        relief='sunken')
     self.note.add(self.tela1, text='MOLÉCULA')
-
+    self.tela2 = Frame(self.tela_entrar,
+                       bg='#D8E1FF',
+                       borderwidth=2,
+                       relief='sunken')
+    self.note.add(self.tela2, text='ELEMENTO')
     #____________inicio___________________
 
     #caixas entry
@@ -84,9 +103,33 @@ class chemical:
     self.botao = Button(self.tela1, text="Processar", command=self.prosses)
     self.botao.place(x=60, y=350)
 
-    #self.botao = Button(self.tela1, text="elemento", command=self.elemento)
-    #self.botao.place(x=120, y=350)
+    #________________tela2________________
+    self.nome_elem = Label(self.tela2,
+                           text='INFORME O ELEMENTO: ',
+                           bg='#D8E1FF')
+    self.nome_elem.place(x=55, y=5)
+    self.caixa_elem = Entry(self.tela2,
+                            )  #caixa de massa molecular e composição
+    self.caixa_elem.place(x=40, y=25, width=200)
 
+    self.ap_elem = Label(self.tela2, text='NOME DO ELEMENTO ', bg='#D8E1EE')
+    self.ap_elem.place(x=20, y=60)
+
+    self.ap_simb = Label(self.tela2, text='SIMBOLO ', bg='#D8E1EE')
+    self.ap_simb.place(x=20, y=120)
+
+    self.ap_conf = Label(self.tela2, text='ELETRO CONFIGURAÇÃO ', bg='#D8E1EE')
+    self.ap_conf.place(x=20, y=180)
+
+    self.ap_confe = Label(self.tela2,
+                          text='ELETRO CONFIGURAÇÃO ',
+                          bg='#D8E1EE')
+    self.ap_confe.place(x=20, y=240)
+
+    self.botao = Button(self.tela2, text="Processar", command=self.elemento)
+    self.botao.place(x=60, y=350)
+
+    #____________________________________
     self.tela_entrar.mainloop()
 
 
