@@ -7,14 +7,21 @@ from tkinter import ttk
 class chemical:
 
   def prosses(self):
-    #___________________massa e composição_________________________
-    self.mas_comp = self.caixa_mol.get()
-    self.formula = Formula(self.mas_comp)
-    self.my_var = self.formula.mass
-    self.comp = self.formula.composition()
-    self.ap_mol.config(text=f'{self.my_var} g/mol')
-    self.ap_comp.config(text=f'{self.comp} ')
-    print(self.my_var)
+    try:
+      #___________________massa e composição_________________________
+      self.mas_comp = self.caixa_mol.get()
+      self.formula = Formula(self.mas_comp)
+      self.my_var = self.formula.mass
+      self.comp = self.formula.composition()
+      self.atom = self.formula.atoms
+      self.ap_mol.config(text=f'{self.my_var} g/mol')
+      self.ap_comp.config(text=f'{self.comp} ')
+      self.ap_atom.config(text=f'existe(m) {self.atom} átomo(s)')
+      print(self.my_var)
+    except Exception:
+      self.ap_mol.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
+      self.ap_comp.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE ')
+      self.ap_atom.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
 
   #________________________Elementos_______________________________
 
@@ -43,7 +50,7 @@ class chemical:
 
     #____________inicio___________________
 
-    #____________parte do pross__________
+    #caixas entry
     self.nome_mol = Label(self.tela1,
                           text='INFORME A MOLÉCULA: ',
                           bg='#D8E1FF')
@@ -52,21 +59,26 @@ class chemical:
                            )  #caixa de massa molecular e composição
     self.caixa_mol.place(x=40, y=25, width=200)
 
-    self.caixa_elem = Entry(self.tela1, )  #caixa para Elementos
-    self.caixa_elem.place(x=40, y=200, width=200)
+    #self.caixa_elem = Entry(self.tela1, )  #caixa para Elementos
+    #self.caixa_elem.place(x=40, y=200, width=200)
 
     #________________________________
     #ligação com def
     self.my_var = StringVar()
     self.mas_comp = ""
+
     self.element = ""
+
     #________________________________
 
     self.ap_mol = Label(self.tela1, text='Massa Molar g/mol ', bg='#D8E1EE')
-    self.ap_mol.place(x=60, y=60)  #massa molar
+    self.ap_mol.place(x=20, y=60)  #massa molar
 
     self.ap_comp = Label(self.tela1, text='Composição', bg='#D8E1EE')
-    self.ap_comp.place(x=40, y=100)  #composição
+    self.ap_comp.place(x=20, y=100)  #composição
+
+    self.ap_atom = Label(self.tela1, text="Quant de Átomos", bg='#D8E1EE')
+    self.ap_atom.place(x=20, y=190)  #átomos
 
     self.botao = Button(self.tela1, text="massa", command=self.prosses)
     self.botao.place(x=60, y=350)
