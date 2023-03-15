@@ -20,8 +20,9 @@ class chemical:
       print(self.my_var)
     except Exception:
       self.ap_mol.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
-      self.ap_comp.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE ')
-      self.ap_atom.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
+      self.ap_comp.config(text=f'VERIFIQUE O QUE FOI ESCRITO ')
+      self.ap_atom.config(
+        text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
 
   #________________________Elementos_______________________________
 
@@ -52,7 +53,7 @@ class chemical:
 
     #caixas entry
     self.nome_mol = Label(self.tela1,
-                          text='INFORME A MOLÉCULA: ',
+                          text='INFORME O COMPOSTO: ',
                           bg='#D8E1FF')
     self.nome_mol.place(x=55, y=5)
     self.caixa_mol = Entry(self.tela1,
@@ -80,7 +81,7 @@ class chemical:
     self.ap_atom = Label(self.tela1, text="Quant de Átomos", bg='#D8E1EE')
     self.ap_atom.place(x=20, y=190)  #átomos
 
-    self.botao = Button(self.tela1, text="massa", command=self.prosses)
+    self.botao = Button(self.tela1, text="Processar", command=self.prosses)
     self.botao.place(x=60, y=350)
 
     #self.botao = Button(self.tela1, text="elemento", command=self.elemento)
