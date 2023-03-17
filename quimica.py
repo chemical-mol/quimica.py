@@ -57,13 +57,7 @@ class chemical:
 
   #___ ______________________________________________________________
 
-  def tabela(self):
-    self.tela_nova = Toplevel(self.tela3)
-    self.tela_nova.title("TABELA PERIÓDICA")
-    self.tela_nova.geometry("800x600")
-
-    self.elements = create_vis_dataframe()
-    periodic_table_plotly(self.elements)
+  
 
   def __init__(self, master):
 
@@ -151,10 +145,7 @@ class chemical:
     self.botao = Button(self.tela2, text="Processar", command=self.elemento)
     self.botao.place(x=60, y=350)
     #____________________________________
-    #______________FRAME3______________________
-    self.botao = Button(self.tela3, text="Processar", command=self.tabela)
-    self.botao.place(x=60, y=350)
-    #____________________________________
+    
     self.tela_entrar.mainloop()
 
 root = Tk()
