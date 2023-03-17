@@ -4,6 +4,7 @@ from tkinter import *
 from tkinter import ttk
 from mendeleev import element
 from mendeleev.vis import periodic_table
+from mendeleev.vis import create_vis_dataframe, periodic_table_plotly
 
 
 class chemical:
@@ -57,26 +58,17 @@ class chemical:
   #___ ______________________________________________________________
 
   def tabela(self):
-    self.elements = []
-    for row in range(1, 8):
-      for column in range(1, 19):
-        if (row == 1 and
-            (column == 1 or column == 18)) or (row == 2 and
-                                               (column >= 3 and column <= 16)):
-          continue
-        self.element_name = element(column + (row - 1) * 18).symbol
-        self.elements.append(self.element_name)
-        self.button_tab = Button(self.tela3,
-                                 text=self.element_name,
-                                 width=3,
-                                 height=2,
-                                 font=("Helvetica", 12))
-        self.button_tab.grid(row=row, column=column)
+    self.tela_nova = Toplevel(self.tela3)
+    self.tela_nova.title("TABELA PERIÓDICA")
+    self.tela_nova.geometry("800x600")
+
+    self.elements = create_vis_dataframe()
+    periodic_table_plotly(self.elements)
 
   def __init__(self, master):
 
     self.tela_entrar = Tk()
-    self.tela_entrar.geometry('300x450+300+100')
+    self.tela_entrar.geometry('350x450+300+100')
     self.tela_entrar.resizable(width=0, height=0)
     self.tela_entrar.title('DATA BASE')
     self.note = ttk.Notebook(self.tela_entrar)
