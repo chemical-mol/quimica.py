@@ -3,6 +3,7 @@ from molmass import ELEMENTS, Element
 from tkinter import *
 from tkinter import ttk
 from mendeleev import element
+from mendeleev.vis import periodic_table
 
 
 class chemical:
@@ -26,17 +27,20 @@ class chemical:
         text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
 
   #________________________Elementos_______________________________
- #FRAME TELA1
-  def elemento(self): #FRAME TELA2
+
+
+#FRAME TELA1
+
+  def elemento(self):  #FRAME TELA2
     try:
       self.t_elem = self.caixa_elem.get()
-      self.p_elem = ELEMENTS[self.t_elem] #MOLMASS
-      self.p_elem_mendeleev = element(self.t_elem) #MENDELEEV 
+      self.p_elem = ELEMENTS[self.t_elem]  #MOLMASS
+      self.p_elem_mendeleev = element(self.t_elem)  #MENDELEEV
       self.nome_e = self.p_elem.name
       self.simbolo = self.p_elem.symbol
       self.conf = self.p_elem.eleconfig
-      self.e_conf = self.p_elem_mendeleev.oxistates #mendeleev 
-      self.atomic = self.p_elem_mendeleev.atomic_weight #mendeleev
+      self.e_conf = self.p_elem_mendeleev.oxistates  #mendeleev
+      self.atomic = self.p_elem_mendeleev.atomic_weight  #mendeleev
       self.ap_elem.config(text=f'{self.nome_e}')
       self.ap_simb.config(text=f'{self.simbolo}')
       self.ap_conf.config(text=f'{self.conf}')
@@ -52,9 +56,23 @@ class chemical:
 
   #___ ______________________________________________________________
 
+  def tabela(self):
+    self.elements = []
+    for row in range(1, 8):
+      for column in range(1, 19):
+        if (row == 1 and
+            (column == 1 or column == 18)) or (row == 2 and
+                                               (column >= 3 and column <= 16)):
+          continue
+        self.element_name = element(column + (row - 1) * 18).symbol
+        self.elements.append(self.element_name)
+        self.button_tab = Button(self.tela3,
+                                 text=self.element_name,
+                                 width=3,
+                                 height=2,
+                                 font=("Helvetica", 12))
+        self.button_tab.grid(row=row, column=column)
 
-  def mendleev():
-    pass 
   def __init__(self, master):
 
     self.tela_entrar = Tk()
@@ -77,11 +95,11 @@ class chemical:
                        relief='sunken')
     self.note.add(self.tela2, text='ELEMENTO')
 
-    #self.tela3 = Frame(self.tela_entrar,
-   #                    bg='#D8E1FF',
-   #                    borderwidth=2,
-   #                    relief='sunken')
-    #self.note.add(self.tela3, text='TABELA')
+    self.tela3 = Frame(self.tela_entrar,
+                       bg='#D8E1FF',
+                       borderwidth=2,
+                       relief='sunken')
+    self.note.add(self.tela3, text='TABELA')
     #____________inicio___________________
 
     #caixas entry
@@ -132,31 +150,20 @@ class chemical:
     self.ap_conf = Label(self.tela2, text='ELETRO CONFIGURAÇÃO ', bg='#D8E1EE')
     self.ap_conf.place(x=20, y=180)
 
-    self.ap_confe = Label(self.tela2,
-                          text='ESTADO DE OXIDAÇÃO',
-                          bg='#D8E1EE')
+    self.ap_confe = Label(self.tela2, text='ESTADO DE OXIDAÇÃO', bg='#D8E1EE')
     self.ap_confe.place(x=20, y=240)
 
-    self.ap_atomic = Label(self.tela2,
-                          text='PESO ATÔMICO',
-                          bg='#D8E1EE')
+    self.ap_atomic = Label(self.tela2, text='PESO ATÔMICO', bg='#D8E1EE')
     self.ap_atomic.place(x=20, y=300)
 
     self.botao = Button(self.tela2, text="Processar", command=self.elemento)
     self.botao.place(x=60, y=350)
-     #____________________________________
-     #______________FRAME3______________________
-    
-
-
-
-
-
-
-    
+    #____________________________________
+    #______________FRAME3______________________
+    self.botao = Button(self.tela3, text="Processar", command=self.tabela)
+    self.botao.place(x=60, y=350)
     #____________________________________
     self.tela_entrar.mainloop()
-
 
 root = Tk()
 chemical(root)
