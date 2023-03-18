@@ -3,8 +3,8 @@ from molmass import ELEMENTS, Element
 from tkinter import *
 from tkinter import ttk
 from mendeleev import element
-from mendeleev.vis import periodic_table
-from mendeleev.vis import create_vis_dataframe, periodic_table_plotly
+
+
 
 
 class chemical:
@@ -62,7 +62,7 @@ class chemical:
   def __init__(self, master):
 
     self.tela_entrar = Tk()
-    self.tela_entrar.geometry('350x450+300+100')
+    self.tela_entrar.geometry('300x450+300+100')
     self.tela_entrar.resizable(width=0, height=0)
     self.tela_entrar.title('DATA BASE')
     self.note = ttk.Notebook(self.tela_entrar)
@@ -81,11 +81,7 @@ class chemical:
                        relief='sunken')
     self.note.add(self.tela2, text='ELEMENTO')
 
-    self.tela3 = Frame(self.tela_entrar,
-                       bg='#D8E1FF',
-                       borderwidth=2,
-                       relief='sunken')
-    self.note.add(self.tela3, text='TABELA')
+   
     #____________inicio___________________
 
     #caixas entry
