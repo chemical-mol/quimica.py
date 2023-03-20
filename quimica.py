@@ -63,7 +63,7 @@ class chemical:
 
     self.tela_entrar = Tk()
     self.tela_entrar.geometry('300x450+300+100')
-    self.tela_entrar.resizable(width=0, height=0)
+    self.tela_entrar.resizable(width=0, height=0) 
     self.tela_entrar.title('DATA BASE')
     self.note = ttk.Notebook(self.tela_entrar)
     self.note.place(x=5, y=0, width=290, height=440)
