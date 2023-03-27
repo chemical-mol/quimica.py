@@ -174,7 +174,7 @@ class chemical:
     self.botao1.place(x=40, y=350)
 
     self.botao2 = Button(self.tela2,
-                         text="Processar",
+                         text="Armazenar",
                          command=self.armazenar_elemento)
     self.botao2.place(x=180, y=350)
     #____________________________________
