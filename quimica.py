@@ -7,7 +7,7 @@ from mendeleev import element
 
 class chemical:
 
-  def armazenar_prosses(self):
+  def armazenar_prosses(self): #ARMAZENAGEM DO FRAME 1
     try:
       self.mas_comp = self.caixa_mol.get()
       self.formula = Formula(self.mas_comp)
@@ -24,14 +24,14 @@ class chemical:
     except:
       print('ERRO AO ARMAZENAR OS DADOS')
       self.ap_mol.config(text=f'ERRO AO ARMAZENAR OS DADOS')
-      self.ap_comp.config(text=f'VERIFIQUE SE ALGO FOI ESCRITO\PROSSESSADO ')
+      self.ap_comp.config(text=f'VERIFIQUE SE ALGO FOI ESCRITO\PROCESSADO ')
       self.ap_atom.config(text=f'ERRO')
 
-  def armazenar_elemento(self):
+  def armazenar_elemento(self): #ARMAZENAGEM DO FRAME 2
     self.t_elem = self.caixa_elem.get()
-    self.p_elem_mendeleev = element(self.t_elem)  #MENDELEEV
-    self.name_elem = self.p_elem_mendeleev.name  #mendeleev
-    self.atomic_num = self.p_elem_mendeleev.atomic_number  #mendeleev
+    self.p_elem_mendeleev = element(self.t_elem)
+    self.name_elem = self.p_elem_mendeleev.name
+    self.atomic_num = self.p_elem_mendeleev.atomic_number
     self.atomic_vol = self.p_elem_mendeleev.atomic_volume
     self.atomic_weight = self.p_elem_mendeleev.atomic_weight
     self.block = self.p_elem_mendeleev.block
@@ -42,7 +42,7 @@ class chemical:
     self.group_id = self.p_elem_mendeleev.group_id
     self.neutrons = self.p_elem_mendeleev.neutrons
     self.mass = self.p_elem_mendeleev.mass_number
-    self.period = self.p_elem_mendeleev.period  #parei aqui
+    self.period = self.p_elem_mendeleev.period  
     self.abundance_crust = self.p_elem_mendeleev.abundance_crust
     self.cpk_color = self.p_elem_mendeleev.cpk_color
     self.density = self.p_elem_mendeleev.density
@@ -60,7 +60,7 @@ class chemical:
                 self.density, self.econf, self.discoverers,
                 self.discovery_location, self.discovery_year))
       cadastro.close()
-      print('Os dados foram salvos no documento de nome "Dados do Composto.txt"')
+      print('Os dados foram salvos no documento de nome "Dados do Elemento.txt"')
 
   def prosses(self):  #Frame 1
     try:
@@ -71,27 +71,24 @@ class chemical:
       self.comp = self.formula.composition()
       self.atom = self.formula.atoms
 
-      self.ap_mol.config(
-        text=f'A massa molar do composto informado é \n {self.my_var} em g/mol'
-      )
+      self.ap_mol.config(text=f'A massa molar do composto informado é \n {self.my_var} em g/mol')
       self.ap_comp.config(text=f'{self.comp} ')
       self.ap_atom.config(text=f'EXISTE(M) {self.atom} \n ÁTOMO(S) PRESENTE(S) NESSE COMPOSTO')
     except Exception:
       self.ap_mol.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
       self.ap_comp.config(text=f'VERIFIQUE O QUE FOI ESCRITO ')
-      self.ap_atom.config(
-        text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
+      self.ap_atom.config(text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
 
   def elemento(self):  #FRAME TELA2
     try:
       self.t_elem = self.caixa_elem.get()
-      self.p_elem = ELEMENTS[self.t_elem]  #MOLMASS
-      self.p_elem_mendeleev = element(self.t_elem)  #MENDELEEV
-      self.nome_e = self.p_elem.name  #MOLMASS
-      self.simbolo = self.p_elem.symbol  #MOLMASS
-      self.conf = self.p_elem.eleconfig  #MOLMASS
-      self.e_conf = self.p_elem_mendeleev.oxistates  #mendeleev
-      self.atomic = self.p_elem_mendeleev.atomic_weight  #mendeleev
+      self.p_elem = ELEMENTS[self.t_elem]
+      self.p_elem_mendeleev = element(self.t_elem)
+      self.nome_e = self.p_elem.name
+      self.simbolo = self.p_elem.symbol
+      self.conf = self.p_elem.eleconfig
+      self.e_conf = self.p_elem_mendeleev.oxistates
+      self.atomic = self.p_elem_mendeleev.atomic_weight
       self.cpk_color = self.p_elem_mendeleev.cpk_color
       self.cor_padrao ='#D8E1FF'
       
@@ -105,11 +102,9 @@ class chemical:
     except:
       
       self.cor_cpk.config(text=f'ERRO NA COR DO ELEMENTO',bg=f'{self.cor_padrao}')
-      
       self.ap_elem.config(text=f'ALGO FOI DIGITADO INCORRETAMENTE')
       self.ap_simb.config(text=f'VERIFIQUE O QUE FOI ESCRITO ')
-      self.ap_conf.config(
-        text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
+      self.ap_conf.config(text=f'SOMETHING WAS ENTERED INCORRECTLY,\n CHECK WHAT WAS WRITTEN')
       self.ap_confe.config(text=f'Erro!')
       self.ap_atomic.config(text=f'Erro!')
 
@@ -117,53 +112,58 @@ class chemical:
 
 #___ ______________________________________________________________
 
-  def __init__(self, master):
-    self.tela_entrar = Tk()
-    self.tela_entrar.geometry('300x450+300+100')
+  def __init__(self, tela_entrar):
+    self.tela_entrar = tela_entrar
+    self.tela_entrar.geometry('300x450')
     self.tela_entrar.resizable(width=0, height=0)
     self.tela_entrar.title('QUÍMICA')
     self.tela_entrar.iconbitmap('reacao-quimica.ico')
     self.note = ttk.Notebook(self.tela_entrar)
     self.note.place(x=5, y=0, width=290, height=440)
-    #frame COMPOSTO
+
+    #________________ligação com def________________
+    self.mas_comp = ""
+    self.element = ""
+    #_______________________________________________
+
+    #FRAME COMPOSTO
     self.tela1 = Frame(self.tela_entrar,
                        bg='#D8E1FF',
                        borderwidth=2,
                        relief='sunken')
     self.note.add(self.tela1, text='COMPOSTO')
+
+    #FRAME ELEMENTO
     self.tela2 = Frame(self.tela_entrar,
                        bg='#D8E1FF',
                        borderwidth=2,
                        relief='sunken')
     self.note.add(self.tela2, text='ELEMENTO')
 
-    #____________inicio___________________
+    #WIDGETS DO COMPOSTO
 
-    #caixas entry
-    self.nome_mol = Label(self.tela1,
-                          text='INFORME O COMPOSTO: ',
-                          bg='#D8E1FF')
+    self.nome_mol = Label(self.tela1,text='INFORME O COMPOSTO: ',bg='#D8E1FF')
     self.nome_mol.place(x=55, y=5)
-    self.caixa_mol = Entry(self.tela1,
-                           )  #caixa de massa molecular e composição
+    self.caixa_mol = Entry(self.tela1)  #caixa de massa molecular e composição
     self.caixa_mol.place(x=40, y=25, width=200)
-    #________________________________
-    #ligação com def
-    self.mas_comp = ""
-    self.element = ""
-    #________________________________
+   
     self.ap_mol = Label(self.tela1, text='Massa Molar g/mol ', bg='#D8E1EE')
     self.ap_mol.place(x=20, y=60)  #massa molar
+
     self.ap_comp = Label(self.tela1, text='Composição', bg='#D8E1EE')
     self.ap_comp.place(x=20, y=100)  #composição
+
     self.ap_atom = Label(self.tela1, text="Quant de Átomos", bg='#D8E1EE')
     self.ap_atom.place(x=20, y=190)  #átomos
+
     self.botao1 = Button(self.tela1, text="Processar", command=self.prosses)
     self.botao1.place(x=40, y=350)
+
     self.botao2 = Button(self.tela1,
                          text="Armazenar",
                          command=self.armazenar_prosses)
     self.botao2.place(x=160, y=350)
+
     #________________tela2________________
     self.nome_elem = Label(self.tela2,
                            text='INFORME O ELEMENTO: ',
@@ -203,5 +203,5 @@ class chemical:
     
     self.tela_entrar.mainloop()
 
-root = Tk()
-chemical(root)
+tela_entrar = Tk()
+chemical(tela_entrar)
